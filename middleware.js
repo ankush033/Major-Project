@@ -3,17 +3,17 @@ const Review = require("./models/review");
 const ExpressError = require("./utils/expressError");
 const { listingSchema, reviewSchema } = require("./Schema");
 
-// Check login
+// ✅ Check if user is logged in
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
-    req.session.returnTo = req.originalUrl;
+    req.session.returnTo = req.originalUrl; // save attempted URL
     req.flash("error", "You must be logged in first!");
     return res.redirect("/login");
   }
   next();
 };
 
-// Save Redirect URL
+// ✅ Save redirect URL for views (optional)
 module.exports.saveRedirectUrl = (req, res, next) => {
   if (req.session.returnTo) {
     res.locals.redirectUrl = req.session.returnTo;
@@ -21,7 +21,7 @@ module.exports.saveRedirectUrl = (req, res, next) => {
   next();
 };
 
-// Validate Listing
+// ✅ Validate Listing
 module.exports.validateListing = (req, res, next) => {
   const { error } = listingSchema.validate(req.body);
   if (error) {
@@ -31,7 +31,7 @@ module.exports.validateListing = (req, res, next) => {
   next();
 };
 
-// Validate Review
+// ✅ Validate Review
 module.exports.validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
   if (error) {
@@ -42,7 +42,7 @@ module.exports.validateReview = (req, res, next) => {
   next();
 };
 
-// Check Listing Owner
+// ✅ Check Listing Owner
 module.exports.isOwner = async (req, res, next) => {
   const { id } = req.params;
   const listing = await Listing.findById(id);
@@ -57,7 +57,7 @@ module.exports.isOwner = async (req, res, next) => {
   next();
 };
 
-// Check Review Author
+// ✅ Check Review Author
 module.exports.isReviewAuthor = async (req, res, next) => {
   const { reviewId, id } = req.params;
   const review = await Review.findById(reviewId);

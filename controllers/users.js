@@ -2,7 +2,7 @@ const User = require("../models/user");
 
 // Render signup form
 const renderRegister = (req, res) => {
-  return res.render("users/signup");
+  res.render("users/signup", { title: "Sign Up" });
 };
 
 // Handle signup
@@ -15,24 +15,27 @@ const register = async (req, res, next) => {
     req.login(registeredUser, (err) => {
       if (err) return next(err);
       req.flash("success", "Welcome to Wanderlust!");
-      return res.redirect("/listings");
+      const redirectUrl = req.session.returnTo || "/listings";
+      delete req.session.returnTo; // clear after redirect
+      res.redirect(redirectUrl);
     });
   } catch (e) {
     req.flash("error", e.message);
-    return res.redirect("/signup");
+    res.redirect("/signup");
   }
 };
 
 // Render login form
 const renderLogin = (req, res) => {
-  return res.render("users/login");
+  res.render("users/login", { title: "Login" });
 };
 
 // Handle login
 const login = (req, res) => {
   req.flash("success", "Welcome back!");
-  const redirectUrl = res.locals.redirectUrl || "/listings";
-  return res.redirect(redirectUrl);
+  const redirectUrl = req.session.returnTo || "/listings";
+  delete req.session.returnTo; // clear after redirect
+  res.redirect(redirectUrl);
 };
 
 // Logout
@@ -40,7 +43,7 @@ const logout = (req, res, next) => {
   req.logout((err) => {
     if (err) return next(err);
     req.flash("success", "Goodbye!");
-    return res.redirect("/listings");
+    res.redirect("/listings");
   });
 };
 

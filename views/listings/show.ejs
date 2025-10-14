@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <!-- 🗺️ Mapbox Map + Reserve Button -->
+  <!-- 🗺️ Mapbox Map -->
   <div class="col-12 col-md-6 offset-md-3 mt-4 shadow-sm p-3 rounded">
     <div id="map" 
          data-lng="<%= listing.geometry?.coordinates?.[0] || 78.9629 %>" 
@@ -42,18 +42,9 @@
          data-location="<%= listing.location %>" 
          style="height: 400px; border-radius: 10px;"></div>
 
+    <!-- ✅ Reserved Button -->
     <% if (currentUser) { %>
-      <!-- Reserved Notice (Initially hidden) -->
-      <div id="reservedNotice" class="alert alert-info text-center fw-bold mt-3" style="display:none;">
-        Reserved
-      </div>
-
-      <!-- Reserve Button -->
-      <div class="d-flex justify-content-center mt-3">
-        <button id="reserveBtn" class="btn btn-primary">Reserve</button>
-      </div>
-    <% } else { %>
-      <p class="mt-3 text-center"><a href="/login">Login</a> to reserve this listing.</p>
+      <button id="reserveBtn" class="btn btn-success mt-3 w-100">Reserve</button>
     <% } %>
   </div>
 
@@ -105,15 +96,30 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
 
-<!-- Reserved Button Script -->
-<% if (currentUser) { %>
-<script>
-  const reserveBtn = document.getElementById('reserveBtn');
-  const reservedNotice = document.getElementById('reservedNotice');
+<!-- ✅ Flash Message Container -->
+<div id="reserveFlash" class="alert alert-success fixed-top text-center m-3 d-none" role="alert">
+  Reserved!
+</div>
 
-  reserveBtn.addEventListener('click', () => {
-    reservedNotice.style.display = 'block';
-    reservedNotice.scrollIntoView({ behavior: 'smooth' });
-  });
+<!-- ✅ Reserve Button Script -->
+<script>
+  const reserveBtn = document.getElementById("reserveBtn");
+  const flash = document.getElementById("reserveFlash");
+
+  if(reserveBtn){
+    reserveBtn.addEventListener("click", () => {
+      // Show flash message
+      flash.classList.remove("d-none");
+      flash.classList.add("show");
+
+      // Hide after 2 seconds
+      setTimeout(() => {
+        flash.classList.add("d-none");
+      }, 2000);
+
+      // Disable button after click
+      reserveBtn.disabled = true;
+      reserveBtn.textContent = "Reserved";
+    });
+  }
 </script>
-<% } %>
