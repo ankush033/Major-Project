@@ -1,26 +1,106 @@
-<%- layout('layouts/boilerPlate') -%>
+<% layout('/layouts/boilerPlate') %>
 
-<body>
-  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-    <% for (let listing of allListings) { %>
-      <div class="col">
-        <a href="/listings/<%= listing._id %>" class="listing-link" style="text-decoration: none; color: inherit;">
-          <div class="card h-100">
-            <img 
-              src="<%= listing.image %>"
-              class="card-img-top" 
-              alt="listing_image"
-              style="height: 20rem; object-fit: cover;"
-            />
-            <div class="card-body">
-              <p class="card-text">
-                <b><%= listing.title %></b><br/>
-                &#8377;<%= listing.price ? listing.price.toLocaleString('en-IN') : 'N/A' %> /night
-              </p>
-            </div>
-          </div>
-        </a>
+<!-- 🏷️ Category Bar with Toggle -->
+<div class="container-fluid category-bar px-4 py-3 border-bottom position-relative d-flex justify-content-between align-items-center flex-wrap">
+  <!-- ⬅️ Scroll Left -->
+  <button class="scroll-btn left" id="scrollLeft"><i class="fa-solid fa-chevron-left"></i></button>
+
+  <!-- 🌐 Category Scroll -->
+  <div class="d-flex flex-nowrap gap-4 align-items-center category-scroll" id="categoryScroll">
+    <% const iconMap = {
+         "Beachfront": "fa-umbrella-beach",
+         "Mountains": "fa-mountain",
+         "Countryside": "fa-leaf",
+         "Iconic Cities": "fa-city",
+         "Luxury": "fa-gem",
+         "Treehouses": "fa-tree",
+         "Lakefront": "fa-water",
+         "Castles": "fa-chess-rook",
+         "Camping": "fa-campground",
+         "Tiny Homes": "fa-house-chimney",
+         "Boats": "fa-sailboat",
+         "Arctic": "fa-snowflake",
+         "Desert": "fa-sun",
+         "Farms": "fa-tractor"
+       }; %>
+
+    <% categories.forEach(c => { %>
+      <a href="/listings/category/<%= c %>"
+         class="category-item <%= selectedCategory === c ? 'active' : '' %>">
+        <i class="fa-solid <%= iconMap[c] || 'fa-house' %>"></i>
+        <p><%= c %></p>
+      </a>
+    <% }) %>
+  </div>
+
+  <!-- ⚙️ Toggle Button (Moved here beside category bar) -->
+  <div class="tax-toggle d-flex align-items-center gap-2 ms-3">
+    <span class="toggle-label">Display total price After taxes</span>
+    <div class="toggle-switch">
+      <input type="checkbox" id="taxToggle" />
+      <label for="taxToggle"></label>
+    </div>
+  </div>
+
+  <!-- ➡️ Scroll Right -->
+  <button class="scroll-btn right" id="scrollRight"><i class="fa-solid fa-chevron-right"></i></button>
+</div>
+
+<!-- 🏡 Listings -->
+<div class="container mt-4">
+  <div class="row g-4">
+    <% if (listings.length === 0) { %>
+      <div class="col-12 text-center">
+        <h5 class="text-muted">No listings found.</h5>
       </div>
     <% } %>
+
+    <% listings.forEach(listing => { 
+         const afterTax = (listing.price * 1.12).toFixed(2); %>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="listing-card">
+          <img src="<%= listing.image?.url || 'https://via.placeholder.com/400x300' %>" class="fixed-img" alt="Listing Image">
+          <div class="card-body">
+            <h5 class="card-title"><%= listing.title %></h5>
+            <p class="card-text"><%= listing.location %></p>
+
+            <p class="price before-tax">₹<%= listing.price %> / night</p>
+            <p class="price after-tax">₹<%= afterTax %> / night (incl. tax)</p>
+
+            <a href="/listings/<%= listing._id %>" class="btn btn-primary mt-auto">View</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
   </div>
-</body>
+</div>
+
+<!-- 🧠 Scripts (same as before) -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("taxToggle");
+    const before = document.querySelectorAll(".before-tax");
+    const after = document.querySelectorAll(".after-tax");
+
+    toggle.addEventListener("change", e => {
+      const show = e.target.checked;
+      before.forEach(p => p.style.display = show ? "none" : "block");
+      after.forEach(p => p.style.display = show ? "block" : "none");
+    });
+
+    const scrollContainer = document.getElementById("categoryScroll");
+    const left = document.getElementById("scrollLeft");
+    const right = document.getElementById("scrollRight");
+
+    function updateButtons() {
+      const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      left.style.display = scrollContainer.scrollLeft > 0 ? "flex" : "none";
+      right.style.display = scrollContainer.scrollLeft < maxScroll ? "flex" : "none";
+    }
+
+    left.addEventListener("click", () => scrollContainer.scrollBy({ left: -200, behavior: "smooth" }));
+    right.addEventListener("click", () => scrollContainer.scrollBy({ left: 200, behavior: "smooth" }));
+    scrollContainer.addEventListener("scroll", updateButtons);
+    updateButtons();
+  });
+</script>

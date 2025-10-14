@@ -1,0 +1,72 @@
+/* General Styles for the Starability Result */
+.starability-result {
+  position: relative;
+  width: 150px;
+  height: 30px;
+  background-image: url("data:image/png;base64,..."); /* Replace with your actual image URL */
+  font-size: 0.1em;
+  color: transparent;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Adjust the `:after` for different rating states */
+.starability-result:after {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  height: 30px;
+  background-image: url("data:image/png;base64,..."); /* Replace with your actual image URL */
+}
+
+/* Define the width based on the rating */
+.starability-result[data-rating="5"]::after { width: 150px; }
+.starability-result[data-rating="4"]::after { width: 120px; }
+.starability-result[data-rating="3"]::after { width: 90px; }
+.starability-result[data-rating="2"]::after { width: 60px; }
+.starability-result[data-rating="1"]::after { width: 30px; }
+
+/* Adjust the star rating input form */
+.starability-slot {
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+}
+
+/* For each input checkbox */
+.starability-slot > input {
+  position: absolute;
+  margin-right: -100%;
+  opacity: 0;
+}
+
+.starability-slot > label {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  cursor: pointer;
+  background-image: url("data:image/png;base64,..."); /* Replace with your actual image URL */
+}
+
+.starability-slot > input:checked + label {
+  background-position: 0 -30px;
+}
+
+.starability-slot > input:not([disabled]):hover + label {
+  background-position: 0 -30px;
+}
+
+.starability-slot > label::before {
+  content: '';
+  position: absolute;
+  display: block;
+  height: 30px;
+  background-image: url("data:image/png;base64,..."); /* Replace with your actual image URL */
+  background-size: cover;
+  opacity: 0;
+}

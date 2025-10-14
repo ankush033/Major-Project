@@ -1,196 +1,124 @@
 const sampleListings = [
   {
     title: "Cozy Beachfront Cottage",
-    description: "Escape to the beach in this cozy and peaceful cottage.",
-    image: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    price: 2500,
-    location: "Goa",
-    country: "India"
-  },
-  {
-    title: "Luxury Mountain Cabin",
-    description: "A luxury stay in the serene Himalayas.",
-    image: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd",
-    price: 5000,
-    location: "Manali",
-    country: "India"
-  },
-  {
-    title: "Urban Apartment",
-    description: "Modern apartment in the heart of the city.",
-    image: "https://images.unsplash.com/photo-1494526585095-c41746248156",
-    price: 3200,
-    location: "Mumbai",
-    country: "India"
-  },
-  {
-    title: "Rustic Countryside House",
-    description: "Experience rural charm and nature.",
-    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
-    price: 1800,
-    location: "Punjab",
-    country: "India"
-  },
-  {
-    title: "Modern Villa with Pool",
-    description: "A stylish villa featuring a private pool.",
-    image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511",
-    price: 7200,
-    location: "Bali",
-    country: "Indonesia"
-  },
-  {
-    title: "Snowy Chalet",
-    description: "A cozy chalet surrounded by snow.",
-    image: "https://images.unsplash.com/photo-1484154218962-a197022b5858",
-    price: 4500,
-    location: "Switzerland",
-    country: "Switzerland"
-  },
-  {
-    title: "Seaside Bungalow",
-    description: "Private bungalow with sea view.",
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
-    price: 3500,
-    location: "Kerala",
-    country: "India"
-  },
-  {
-    title: "City Loft",
-    description: "Trendy loft in the downtown area.",
-    image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
-    price: 4000,
-    location: "Delhi",
-    country: "India"
-  },
-  {
-    title: "Tropical Resort",
-    description: "Luxury resort with beach access.",
-    image: "https://images.unsplash.com/photo-1501117716987-c8e1ecb210fb",
-    price: 8000,
-    location: "Maldives",
-    country: "Maldives"
-  },
-  {
-    title: "Countryside Cottage",
-    description: "Charming countryside escape.",
-    image: "https://images.unsplash.com/photo-1505691723518-36a1a2f17d57",
-    price: 2200,
-    location: "Rajasthan",
-    country: "India"
-  },
-  {
-    title: "Glass House",
-    description: "Stay in a house with panoramic views.",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
-    price: 6000,
-    location: "California",
-    country: "USA"
-  },
-  {
-    title: "Desert Camp",
-    description: "Adventure stay in desert tents.",
-    image: "https://images.unsplash.com/photo-1530023367847-a683933f4177",
-    price: 2800,
-    location: "Jaisalmer",
-    country: "India"
-  },
-  {
-    title: "Lake View Cabin",
-    description: "Peaceful cabin by the lake.",
-    image: "https://images.unsplash.com/photo-1505691723518-36a1a2f17d57",
-    price: 3700,
-    location: "Nainital",
-    country: "India"
-  },
-  {
-    title: "Heritage Haveli",
-    description: "Experience royal luxury.",
-    image: "https://images.unsplash.com/photo-1530023367847-a683933f4177",
-    price: 9000,
-    location: "Jaipur",
-    country: "India"
-  },
-  {
-    title: "Jungle Treehouse",
-    description: "Stay among the treetops.",
-    image: "https://images.unsplash.com/photo-1540202404-c67a8e4f2d6a",
-    price: 4200,
-    location: "Meghalaya",
-    country: "India"
-  },
-  {
-    title: "Island Villa",
-    description: "Private island luxury villa.",
-    image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511",
-    price: 15000,
-    location: "Andaman",
-    country: "India"
-  },
-  {
-    title: "Forest Cottage",
-    description: "Cottage in the middle of the forest.",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
-    price: 3100,
-    location: "Munnar",
-    country: "India"
-  },
-  {
-    title: "Beach Shack",
-    description: "Affordable stay by the sea.",
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+    description: "Escape to this charming beachfront cottage with ocean views.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?auto=format&fit=crop&w=800&q=60",
+    },
     price: 1500,
-    location: "Goa",
-    country: "India"
+    location: "Malibu",
+    country: "United States",
+    category: "Beachfront",
   },
   {
-    title: "Penthouse Suite",
-    description: "Luxury penthouse in the city.",
-    image: "https://images.unsplash.com/photo-1505691723518-36a1a2f17d57",
-    price: 11000,
-    location: "Bangalore",
-    country: "India"
+    title: "Modern Loft in Downtown",
+    description: "Stay in the heart of the city in this stylish loft apartment.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 1200,
+    location: "New York City",
+    country: "United States",
+    category: "Iconic Cities",
   },
   {
-    title: "Countryside Villa",
-    description: "Spacious villa with gardens.",
-    image: "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+    title: "Mountain Retreat",
+    description: "Unplug in this peaceful mountain cabin surrounded by nature.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 1000,
+    location: "Aspen",
+    country: "United States",
+    category: "Mountains",
+  },
+  {
+    title: "Luxury Desert Villa",
+    description: "Luxury living meets desert tranquility in this Dubai retreat.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1601979031925-424e53b6caaa?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 4500,
+    location: "Dubai",
+    country: "United Arab Emirates",
+    category: "Desert",
+  },
+  {
+    title: "Tiny Home Adventure",
+    description: "Experience minimalist living in this perfectly designed tiny house.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 600,
+    location: "Oregon",
+    country: "United States",
+    category: "Tiny Homes",
+  },
+  {
+    title: "Lakeside Camping Spot",
+    description: "Camp by the lake under the stars — nature at its best!",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 400,
+    location: "Banff",
+    country: "Canada",
+    category: "Camping",
+  },
+  {
+    title: "Luxury Penthouse",
+    description: "Sky-high luxury with unmatched panoramic city views.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1622396481328-9b1b78cdd9fd?auto=format&fit=crop&w=800&q=60",
+    },
     price: 5000,
-    location: "Himachal",
-    country: "India"
+    location: "Los Angeles",
+    country: "United States",
+    category: "Luxury",
   },
   {
-    title: "Minimalist Apartment",
-    description: "Clean and modern design.",
-    image: "https://images.unsplash.com/photo-1494526585095-c41746248156",
-    price: 3500,
-    location: "Pune",
-    country: "India"
+    title: "Floating Boat House",
+    description: "Wake up on the water in this elegant houseboat stay.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1499186024912-c3749629905e?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 2000,
+    location: "Kerala",
+    country: "India",
+    category: "Boats",
   },
   {
-    title: "Private Cabin",
-    description: "Cabin for complete privacy.",
-    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
-    price: 2800,
-    location: "Ooty",
-    country: "India"
+    title: "Arctic Glass Igloo",
+    description: "Watch the Northern Lights from your cozy glass igloo.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 7000,
+    location: "Lapland",
+    country: "Finland",
+    category: "Arctic",
   },
   {
-    title: "Royal Palace",
-    description: "Live like a king.",
-    image: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd",
-    price: 20000,
-    location: "Udaipur",
-    country: "India"
+    title: "Charming Countryside Villa",
+    description: "Enjoy green hills and fresh air in this peaceful countryside stay.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1602088113235-229c19758e9f?auto=format&fit=crop&w=800&q=60",
+    },
+    price: 1200,
+    location: "Cotswolds",
+    country: "United Kingdom",
+    category: "Countryside",
   },
-  {
-    title: "Hilltop Retreat",
-    description: "Retreat on top of the hills.",
-    image: "https://images.unsplash.com/photo-1540202404-c67a8e4f2d6a",
-    price: 6000,
-    location: "Shillong",
-    country: "India"
-  }
 ];
 
-module.exports = { data: sampleListings };
+module.exports = sampleListings;

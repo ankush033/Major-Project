@@ -1,131 +1,117 @@
+// Load environment variables
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Listing = require("./models/listing.js");
 const path = require("path");
-const ejsMate =require("ejs-mate");
+const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
-const wrapAsync = require("./utils/wrapAsync.js"); 
-const ExpressError = require("./utils/expressError.js"); 
-const { listingSchema } =require("./Schema.js");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const session = require("express-session");
+const MongoStore = require('connect-mongo');
+const flash = require("connect-flash");
 
+// Models
+const User = require("./models/user");
 
+// Routes
+const listingRoutes = require("./routes/listing");
+const reviewRoutes = require("./routes/reviews");
+const userRoutes = require("./routes/user");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const ExpressError = require("./utils/expressError");
 
-main()
-  .then(() => {
-    console.log("connected to DB");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// ✅ Connect to MongoDB Atlas
+const dbUrl = process.env.ATLASDB_URL;
 
-async function main() {
-  await mongoose.connect(MONGO_URL);
-}
+mongoose
+  .connect(dbUrl)
+  .then(() => console.log("✅ Connected to MongoDB Atlas"))
+  .catch((err) => console.error("❌ MongoDB Atlas Connection Error:", err));
 
+// View engine setup
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.engine('ejs',ejsMate);
-app.use(express.static(path.join(__dirname,"/public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 
-app.get("/",(req,res)=>{
-    res.send("Hi i Am a root");
-});
-//New Route
-app.get("/listings/new", (req, res) => {
-  res.render("listings/new.ejs");
-}); 
-const validateListing=(req,res,next)=>{
-    let {error} =listingSchema.validate(req.body);
+app.use(flash());
 
-  if(error){
-    let errMsg =error.details.map((el)=>el.message).join(",");
-    throw new ExpressError(400,error);
-  }else{
-    next();
-  }
+const store = MongoStore.create({
+  mongoUrl : dbUrl,
+  crypto : {
+    secret:"process.env.SECRET"
+  },
+  touchAfter : 24*3600
   
+});
+
+
+// ✅ Session Configuration
+const sessionConfig = {
+  store,
+  secret: process.env.SECRET ,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+  },
 };
+app.use(session(sessionConfig));
 
-//index Route
-app.get("/listings", async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
+// ✅ Passport setup
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// ✅ Flash and locals middleware
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currentUser = req.user;
+  res.locals.MAP_TOKEN = process.env.MAP_TOKEN || "";
+  next();
 });
 
+// ✅ Routes
+app.use("/", userRoutes);
+app.use("/listings", listingRoutes);
+app.use("/listings/:id/reviews", reviewRoutes);
 
-
-
-//Show Route
-app.get("/listings/:id",  wrapAsync( async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/show.ejs", { listing });
-}));
-
-//Create Route
-app.post("/listings", 
-  validateListing,
-  wrapAsync(async (req, res,next) => {
-  const newListing = new Listing(req.body.listing);
-  
-  await newListing.save();
+// Root redirect
+app.get("/", (req, res) => {
   res.redirect("/listings");
-  
-}));
+});
 
-//Edit Route
-app.get("/listings/:id/edit",   wrapAsync(async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/edit.ejs", { listing });
-}));
-
-//Update Route
-app.put("/listings/:id", 
-  validateListing,  wrapAsync( async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-  res.redirect(`/listings/${id}`);
-}));
-
-//Delete Route
-app.delete("/listings/:id",  wrapAsync( async (req, res) => {
-  let { id } = req.params;
-  let deletedListing = await Listing.findByIdAndDelete(id);
-  console.log(deletedListing);
-  res.redirect("/listings");
-}));
-// app.get("/testListing", async (req, res) => {
-//  let sampleListing = new Listing({
-//      title: "My New Villa",
-//      description: "By the beach",
-//      price: 1200,
-//      location: "Calangute, Goa",
-//      country: "India",
-//    });
-
-//   await sampleListing.save();
-//   console.log("sample was saved");
-//   res.send("successful testing");
-// });
+// 404 handler
 app.all("*", (req, res, next) => {
-  next(new ExpressError(404, "Page Not Found"));
+  next(new ExpressError("Page Not Found", 404));
 });
 
-
-app.use((err,req,res,next)=>{
-  let { statusCode = 500, message = "Something went wrong!" } = err;
-  res.render("error.ejs",{err});
-  //sres.status(statusCode).send(message);
+// Global error handler
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Something went wrong!";
+  res.status(statusCode).render("error", {
+    err: { statusCode, message },
+    title: "Error",
+  });
 });
 
-
-app.listen(8080, () => {
-  console.log("server is listening to port 8080");
+// ✅ Start server
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`🚀 Server running on port ${port}`);
 });

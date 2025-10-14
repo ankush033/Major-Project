@@ -1,115 +1,350 @@
-body{
-    font-family:"Plus Jakarta Sans",sans-serif !important;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-} 
-.container{
-    flex:1;
+/* Global styles */
+body {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
 }
 
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main.container {
+  flex: 1;
+}
+
+/* Navbar */
 .navbar {
-    height: 5rem;
-    background-color: white;
+  height: 5rem;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
 }
 
 .fa-compass {
-    color: #fe424d;
-    font-size: 2rem;
+  color: #fe424d;
+  font-size: 2rem;
 }
 
 .nav-link {
-    color: #222222 !important;
+  color: #222 !important;
 }
 
-/* Footer Links */
+/* Listing card */
+.listing-card {
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.listing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+.fixed-img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #222;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.3rem;
+}
+
+.btn.mt-auto {
+  margin-top: auto;
+}
+
+/* Footer */
+.f-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f7f7;
+  padding: 1rem 0;
+  gap: 0.5rem;
+}
+
 .f-info-link a {
-    text-decoration: none;
-    color: #222222;
+  text-decoration: none;
+  color: #222;
 }
 
 .f-info-link a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
-/* Social Icons, Brand, Links — all centered */
-.f-info-link,
-.f-info-social,
-.f-info-brand {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Footer main container */
-.f-info {
-    display: flex;
-    flex-direction: column; /* stack vertically */
-    align-items: center;    /* center horizontally */
-    justify-content: center;
-    background-color: #ebebeb;
-    padding: 1rem 0;
-    gap: 0.5rem; /* spacing between rows */
-}
-
-/* Social Icons Style */
 .f-info-social i {
-    margin: 0 0.5rem;
-    font-size: 1.2rem;
-    color: #222;
-    transition: color 0.2s;
+  margin: 0 0.5rem;
+  font-size: 1.2rem;
+  color: #222;
+  transition: color 0.2s;
 }
 
 .f-info-social i:hover {
-    color: #fe424d;
+  color: #fe424d;
 }
 
-.card{
-    border: none !important;
-    margin-bottom: 2rem;
-}
-.card-img-top{
-    border-radius: 1rem;
-    width: 100% !important;
-    object-fit: cover !important;
-}
-.card-body{
-    padding: 0 !important;
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.card-text{
-    font-weight: 400 !important;
-}
-.listing-link{
-    text-decoration: none;
-}
-.card-img-overlay{
-    opacity: 0;
-}
-.card-img-overlay :hover{
-    background-color: white;
-}
-.add-btn{
-    background:#fe424d !important;
-    border: none !important;
-}
-.edit-btn{
-     background:#fe424d !important;
-    border: none !important;
-
-}
-.show-img{
-    height: 30vh;
+/* 🔍 Search bar styling */
+.search-bar input {
+  border-radius: 50px;
+  border: 1px solid #ddd;
 }
 
-.btns{
-    display: flex;
+.search-bar input:focus {
+  box-shadow: none;
+  border-color: #fe424d;
 }
-.delete-btn{
-    background-color: black;
+
+.search-bar button {
+  background-color: #fe424d;
+  color: white;
+  border: none;
 }
-.shoow-card{
-    padding-left: 0;
-    padding-right: 0;
+
+.search-bar button:hover {
+  background-color: #ff5a60;
+}
+
+/* 🧭 Category Scroll Styling */
+.category-bar {
+  position: relative;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.category-scroll {
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Hide scrollbar (for Firefox) */
+  overflow-x: auto;
+  flex: 1;
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none; /* Hide scrollbar (for Chrome) */
+}
+
+.category-item {
+  flex: 0 0 auto;
+  text-align: center;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.category-item i {
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+  color: #666;
+}
+
+.category-item p {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.category-item:hover,
+.category-item.active {
+  color: #fe424d;
+  transform: translateY(-2px);
+}
+
+.category-item.active i {
+  color: #fe424d;
+}
+
+/* ⬅️➡️ Scroll Buttons */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  font-size: 1.2rem;
+  color: #555;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  z-index: 10;
+  display: none; /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background: #fe424d;
+  color: white;
+}
+
+.scroll-btn.left {
+  left: 5px;
+}
+
+.scroll-btn.right {
+  right: 5px;
+}
+
+/* ⚙️ Tax Toggle - Separated from Scroll Buttons */
+.tax-toggle-container {
+  display: flex;
+  justify-content: flex-end; /* Align to the right */
+  margin-top: 15px; /* Add some space between category bar and tax toggle */
+}
+
+.tax-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 12px 18px;
+  border-radius: 30px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.toggle-label {
+  font-size: 0.85rem;
+  color: #333;
+  white-space: nowrap;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 40px;
+  height: 22px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch label {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 50px;
+  transition: 0.3s;
+}
+
+.toggle-switch label::before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  top: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.toggle-switch input:checked + label {
+  background-color: #fe424d;
+}
+
+.toggle-switch input:checked + label::before {
+  transform: translateX(18px);
+}
+
+/* Adjust font size for after-tax display */
+.after-tax {
+  font-size: 1rem;  /* Reduced font size */
+  margin-top: 5px;
+  display: none;
+  color: #fe424d;  /* Optional: Add color to make it stand out */
+}
+
+/* Optional: Add padding and text alignment if needed */
+.card-text .after-tax {
+  text-align: center;
+  padding: 5px 0;
+}
+.category-item i {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  transition: color 0.2s;
+}
+
+.category-item:hover i {
+  color: #fe424d;
+}
+/* ⭐ Star rating styles */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 5px;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  color: #ccc;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star-rating input:checked ~ label i,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #ffcc00;
+}
+
+/* 🗺️ Map styling */
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.review-section {
+  margin-top: 30px;
 }
