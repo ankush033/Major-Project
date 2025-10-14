@@ -4,16 +4,15 @@ const geocodingClient = mbxGeocoding({ accessToken: process.env.MAP_TOKEN });
 
 // 🆕 Render "New Listing" form
 module.exports.renderNewForm = (req, res) => {
-  res.render("listings/new", { title: "Create New Listing" });
+  return res.render("listings/new", { title: "Create New Listing" });
 };
-
 
 // 🏠 INDEX – All listings with categories
 module.exports.index = async (req, res) => {
   const listings = await Listing.find({}).populate("owner");
-  const categories = await Listing.distinct("category"); // unique categories
+  const categories = await Listing.distinct("category");
 
-  res.render("listings/index", {
+  return res.render("listings/index", {
     listings,
     categories,
     selectedCategory: null,
@@ -27,7 +26,7 @@ module.exports.categoryFilter = async (req, res) => {
   const listings = await Listing.find({ category: categoryName }).populate("owner");
   const categories = await Listing.distinct("category");
 
-  res.render("listings/index", {
+  return res.render("listings/index", {
     listings,
     categories,
     selectedCategory: categoryName,
@@ -50,7 +49,7 @@ module.exports.search = async (req, res) => {
     ],
   });
 
-  res.render("listings/index", {
+  return res.render("listings/index", {
     listings,
     categories,
     selectedCategory: null,
@@ -83,7 +82,7 @@ module.exports.create = async (req, res) => {
 
   await newListing.save();
   req.flash("success", "New listing created!");
-  res.redirect(`/listings/${newListing._id}`);
+  return res.redirect(`/listings/${newListing._id}`);
 };
 
 // 🧾 Show listing details
@@ -98,7 +97,7 @@ module.exports.showListing = async (req, res) => {
     return res.redirect("/listings");
   }
 
-  res.render("listings/show", { listing, title: listing.title });
+  return res.render("listings/show", { listing, title: listing.title });
 };
 
 // ✏️ Edit listing
@@ -110,7 +109,7 @@ module.exports.renderEditForm = async (req, res) => {
     return res.redirect("/listings");
   }
 
-  res.render("listings/edit", { listing, title: `Edit: ${listing.title}` });
+  return res.render("listings/edit", { listing, title: `Edit: ${listing.title}` });
 };
 
 // 🔄 Update listing
@@ -136,7 +135,7 @@ module.exports.updateListing = async (req, res) => {
 
   await listing.save();
   req.flash("success", "Listing updated!");
-  res.redirect(`/listings/${listing._id}`);
+  return res.redirect(`/listings/${listing._id}`);
 };
 
 // ❌ Delete listing
@@ -144,5 +143,5 @@ module.exports.deleteListing = async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   req.flash("success", "Listing deleted!");
-  res.redirect("/listings");
+  return res.redirect("/listings");
 };
