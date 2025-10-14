@@ -39,4 +39,31 @@
   </div>
 
   <button type="submit" class="btn btn-outline-dark"><%= buttonText %></button>
+  <!-- Category -->
+<div class="mb-3">
+  <label for="category" class="form-label">Category</label>
+  <select name="listing[category]" id="category" class="form-select" required>
+    <% [
+      "Trending",
+      "Rooms",
+      "Iconic Cities",
+      "Mountains",
+      "Castles",
+      "Amazing Pools",
+      "Camping",
+      "Farms",
+      "Arctic",
+      "Domes",
+      "Boats",
+      "Beachfront",
+      "Desert",
+      "Luxury",
+      "Tiny Homes",
+      "Countryside"
+    ].forEach(cat => { %>
+      <option value="<%= cat %>" <%= listing?.category === cat ? 'selected' : '' %>><%= cat %></option>
+    <% }) %>
+  </select>
+</div>
+
 </form>
