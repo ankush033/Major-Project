@@ -35,6 +35,23 @@
         <input type="text" name="listing[country]" id="country" class="form-control" value="<%= listing.country %>" required>
       </div>
 
+      <!-- Category Dropdown -->
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select name="listing[category]" id="category" class="form-control" required>
+          <option value="Trending" <%= listing.category === 'Trending' ? 'selected' : '' %>>Trending</option>
+          <option value="Mountain" <%= listing.category === 'Mountain' ? 'selected' : '' %>>Mountain</option>
+          <option value="Beachfront" <%= listing.category === 'Beachfront' ? 'selected' : '' %>>Beachfront</option>
+          <option value="Iconic Cities" <%= listing.category === 'Iconic Cities' ? 'selected' : '' %>>Iconic Cities</option>
+          <option value="Camping" <%= listing.category === 'Camping' ? 'selected' : '' %>>Camping</option>
+          <option value="Castles" <%= listing.category === 'Castles' ? 'selected' : '' %>>Castles</option>
+          <option value="Amazing Pools" <%= listing.category === 'Amazing Pools' ? 'selected' : '' %>>Amazing Pools</option>
+          <option value="Arctic" <%= listing.category === 'Arctic' ? 'selected' : '' %>>Arctic</option>
+          <option value="Desert" <%= listing.category === 'Desert' ? 'selected' : '' %>>Desert</option>
+          <option value="Luxury" <%= listing.category === 'Luxury' ? 'selected' : '' %>>Luxury</option>
+        </select>
+      </div>
+
       <!-- Image -->
       <div class="mb-3">
         <label for="image" class="form-label">Upload Image</label>
