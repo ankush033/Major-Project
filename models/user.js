@@ -1,18 +1,15 @@
-const express = require("express");
-const router = express.Router();
-const userController = require("../controllers/user");
-const wrapAsync = require("../utils/wrapAsync");
+const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
-router.get("/signup", userController.renderRegister);
-router.post("/signup", wrapAsync(userController.register));
+const UserSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  }
+});
 
-router.get("/login", userController.renderLogin);
-router.post(
-  "/login",
-  passport.authenticate("local", { failureFlash: true, failureRedirect: "/login" }),
-  userController.login
-);
+// Add username + password automatically with passport-local-mongoose
+UserSchema.plugin(passportLocalMongoose);
 
-router.get("/logout", userController.logout);
-
-module.exports = router;
+module.exports = mongoose.model('User', UserSchema);
