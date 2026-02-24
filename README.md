@@ -60,5 +60,5 @@ WanderLust/
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/ankush033/YOUR-REPO-NAME.git
-cd YOUR-REPO-NAME
+git clone https://github.com/ankush033/majorproject.git
+cd majorproject
