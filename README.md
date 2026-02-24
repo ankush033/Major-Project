@@ -1,67 +1,24 @@
-# 🌍 WanderLust
+# Major Project
 
-> WanderLust is a full-stack travel listing web application inspired by Airbnb.  
-It allows users to explore, create, and manage beautiful place listings from around the world.
+## Screenshots
 
-🔗 **Live Demo:**  
-https://wanderlust-project-gobw.onrender.com
+### Screenshot 1
+![Screenshot 1](path/to/screenshot1.png)
 
----
+### Screenshot 2
+![Screenshot 2](path/to/screenshot2.png)
 
-## 🚀 Features
+### Screenshot 3
+![Screenshot 3](path/to/screenshot3.png)
 
-✨ User Authentication (Signup / Login / Logout)  
-✨ Create, Edit & Delete Listings  
-✨ Secure Session Management  
-✨ Image Upload with Cloud Storage  
-✨ Flash Messages & Error Handling  
-✨ Protected Routes  
-✨ Responsive UI Design  
-✨ RESTful Routing  
+## Project Overview
 
----
+Insert a brief overview of your project here...
 
-## 🛠 Tech Stack
+## Usage
 
-### 💻 Frontend
-- EJS
-- Bootstrap 5
-- CSS
+Add details on how to use the project...
 
-### ⚙ Backend
-- Node.js
-- Express.js
-- Passport.js (Authentication)
+## License
 
-### 🗄 Database
-- MongoDB Atlas
-- Mongoose
-
-### ☁ Deployment
-- Render
-
----
-
-## 📂 Project Structure
-WanderLust/
-│
-├── models/
-├── routes/
-├── views/
-│ ├── layouts/
-│ └── include/
-├── public/
-├── app.js
-├── package.json
-└── README.md
-
-## ⚙ Installation & Setup
-
-### 1️⃣ Clone the repository
-
-```bash
-git clone https://github.com/ankush033/majorproject.git
-cd majorproject
-
-
-![Home Page](assets/home)
+Specify the license here...
