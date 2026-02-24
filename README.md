@@ -62,3 +62,6 @@ WanderLust/
 ```bash
 git clone https://github.com/ankush033/majorproject.git
 cd majorproject
+
+
+![Home Page](assets/home)
