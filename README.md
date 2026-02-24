@@ -1,24 +1,98 @@
-# Major Project
+# 🌍 WanderLust
 
-## Screenshots
+> WanderLust is a full-stack travel listing web application inspired by Airbnb.  
+It allows users to explore, create, and manage beautiful place listings from around the world.
 
-### Screenshot 1
-![Screenshot 1](path/to/screenshot1.png)
+🔗 **Live Demo:**  
+https://wanderlust-project-gobw.onrender.com
 
-### Screenshot 2
-![Screenshot 2](path/to/screenshot2.png)
+---
 
-### Screenshot 3
-![Screenshot 3](path/to/screenshot3.png)
+## 🚀 Features
 
-## Project Overview
+✨ User Authentication (Signup / Login / Logout)  
+✨ Create, Edit & Delete Listings  
+✨ Secure Session Management  
+✨ Image Upload with Cloud Storage  
+✨ Flash Messages & Error Handling  
+✨ Protected Routes  
+✨ Responsive UI Design  
+✨ RESTful Routing  
 
-Insert a brief overview of your project here...
+---
 
-## Usage
+## 🛠 Tech Stack
 
-Add details on how to use the project...
+### 💻 Frontend
+- EJS
+- Bootstrap 5
+- CSS
 
-## License
+### ⚙ Backend
+- Node.js
+- Express.js
+- Passport.js (Authentication)
 
-Specify the license here...
+### 🗄 Database
+- MongoDB Atlas
+- Mongoose
+
+### ☁ Deployment
+- Render
+
+---
+
+## 📂 Project Structure
+```
+WanderLust/
+│
+├── models/
+├── routes/
+├── views/
+│ ├── layouts/
+│ └── include/
+├── public/
+├── app.js
+├── package.json
+└── README.md
+```
+
+## ⚙ Installation & Setup
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/ankush033/Major-Project.git
+cd Major-Project
+```
+
+---
+
+## 📸 Screenshots
+
+### Home Page
+![Home Page](Screenshot%202026-02-25%20005330.png)
+
+### Browse Listings
+![Browse Listings](Screenshot%202026-02-25%20005959.png)
+
+### Listing Details
+![Listing Details](Screenshot%202026-02-25%20010031.png)
+
+### User Profile
+![User Profile](Screenshot%202026-02-25%20010133.png)
+
+### Create Listing
+![Create Listing](Screenshot%202026-02-25%20010149.png)
+
+### Search & Filter
+![Search & Filter](Screenshot%202026-02-25%20010214.png)
+
+### Additional Features
+![Additional Features](Screenshot%202026-02-25%20010258.png)
+
+---
+
+## 📝 License
+
+This project is open source and available under the MIT License.
